@@ -7,6 +7,8 @@ import { StickyScrollProvider } from './contexts/sticky-scroll-context';
 import { Navigator } from './navigation';
 import { DARK_THEME } from './themes/dark';
 import { LIGHT_THEME } from './themes/light';
+import { UserProvider, useUserContext } from './contexts/user-context';
+import Login from './screens/login';
 
 const config = {
   dependencies: {
@@ -16,6 +18,7 @@ const config = {
 
 const ThemedApp = () => {
   const { theme } = useAppContext();
+  const { user } = useUserContext();
   return (
     <NativeBaseProvider
       config={config}
@@ -23,7 +26,7 @@ const ThemedApp = () => {
     >
       <SafeAreaProvider>
         <StickyScrollProvider>
-          <Navigator />
+          {user ? <Navigator /> : <Login/>}
         </StickyScrollProvider>
       </SafeAreaProvider>
     </NativeBaseProvider>
@@ -33,7 +36,9 @@ const ThemedApp = () => {
 export default function App() {
   return (
     <AppContextProvider>
-      <ThemedApp />
+      <UserProvider>
+        <ThemedApp />
+      </UserProvider>
     </AppContextProvider>
   );
 }

@@ -13,6 +13,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { useAppContext } from '../../../contexts/app-context';
+import { useUserContext } from '../../../contexts/user-context';
+import { Alert, Text, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
   DrawerContentScrollView
@@ -20,6 +23,7 @@ const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { theme, setTheme } = useAppContext();
+  const { user, logout } = useUserContext();
   const { colors } = useTheme();
   const drawerStatus = useDrawerStatus();
   const rotate = useSharedValue('25deg');
@@ -51,24 +55,63 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
     };
   });
 
+  const vipDesc = () => {
+    if (user?.isVIP) {
+      Alert.alert(
+        "VIP Privileges", // Title of the alert
+        "As a VIP, you enjoy exclusive benefits such as:\n\n" + // Message with VIP privileges
+          "- Priority Customer Support\n" +
+          "- Higher Transaction Limits\n" +
+          "- Exclusive Offers and Rewards\n" +
+          "- Personalized Financial Services\n" +
+          "- Complimentary Airport Lounge Access",
+        [
+          { text: "OK", onPress: () => console.log("VIP Alert dismissed") } // Button to dismiss the alert
+        ]
+      );
+    } else {
+      Alert.alert(
+        "How to Become a VIP", // Title of the alert
+        "Upgrade to VIP to enjoy exclusive benefits! Here's how:\n\n" + // Message on becoming a VIP
+          "- Maintain a high account balance.\n" +
+          "- Use the app actively for transactions.\n" +
+          "- Enroll in priority banking programs.\n" +
+          "- Stay loyal and qualify for invitation-only VIP access.",
+        [
+          { text: "OK", onPress: () => console.log("Non-VIP Alert dismissed") } // Button to dismiss the alert
+        ]
+      );
+    }
+  };
+
   return (
     <AnimatedDrawerContentScrollView {...props} style={animatedViewStyle}>
-      <VStack w="full" mb={6} p={3}>
+      <VStack w="full" p={3}>
         <Image
           size={20}
           resizeMode="contain"
           borderRadius={100}
           source={{
-            uri: 'https://media-exp1.licdn.com/dms/image/C4D03AQGqpJwb-P7cyQ/profile-displayphoto-shrink_800_800/0/1596593420728?e=1665014400&v=beta&t=PW-MjxdNTzbnoIBw7Uz4MzCVL0a1MgYebuCNim3XP-8',
+            uri: user?.picUrl,
           }}
           alt="User image"
           mb={3}
         />
         <Heading fontSize="md" color="white">
-          Marcelo D. Junior
+          {user?.username}
         </Heading>
       </VStack>
+      <HStack alignItems="center" p={3} mb={8}>
+        <MaterialCommunityIcons size={12} name='crown-outline' color={user?.isVIP ? '#edd24a' : '#d1d0c9'}/>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>{user?.isVIP ? 'VIP User' : 'Normal User'}</Text>
+      </HStack>
       <DrawerItemList {...props} />
+      <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
+        <HStack alignItems="center">
+          <MaterialCommunityIcons name='account-arrow-up-outline' color={'white'} size={25}/>
+          <Text style={{color: 'white', marginLeft: 16}}>{user?.isVIP ? 'VIP Privilege ': 'How to become VIP'}</Text>
+        </HStack>
+      </TouchableOpacity>
       <HStack alignItems="center" p={3} mt={8}>
         <Heading fontSize="sm" color="white" mr={4}>
           Dark Mode
@@ -80,6 +123,9 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           onTrackColor={colors.primary[500]}
         />
       </HStack>
+      <TouchableOpacity onPress={() => logout()} style={{padding: 12}}>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>LogOut</Text>
+      </TouchableOpacity>
     </AnimatedDrawerContentScrollView>
   );
 };

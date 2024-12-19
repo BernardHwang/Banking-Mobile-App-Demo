@@ -2,10 +2,17 @@ import { Box, FlatList } from 'native-base';
 import { useWindowDimensions } from 'react-native';
 
 import { Card } from '../../../components/card';
-import { CARDS } from '../../../constants/cards';
+import { useUserContext } from '../../../contexts/user-context';
+import { CardModel } from '../../../models/card-model';
+import { NORMALCARDS, VIPCARDS } from '../../../constant/cards';
+
+
+
 
 export const CardList = () => {
   const { width } = useWindowDimensions();
+  const { user } = useUserContext()
+  const cards = user?.isVIP ? VIPCARDS(user) : NORMALCARDS(user)
 
   return (
     <FlatList
@@ -13,7 +20,7 @@ export const CardList = () => {
       stickyHeaderIndices={[0]}
       scrollEventThrottle={16}
       showsHorizontalScrollIndicator={false}
-      data={CARDS}
+      data={cards}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={{
         paddingHorizontal: 8,

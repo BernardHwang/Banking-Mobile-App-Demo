@@ -8,17 +8,21 @@ import { PlusCircle } from 'phosphor-react-native';
 import { Card } from '../../components/card';
 import { Container } from '../../components/container';
 import { Header } from '../../components/header';
-import { CARDS } from '../../constants/cards';
+import { NORMALCARDS, VIPCARDS } from '../../constant/cards';
 
 import { AnimatedCard } from './components/animated-card';
+import { useUserContext } from '../../contexts/user-context';
 
 export const Cards = () => {
   const { colors } = useTheme();
+  const { user } = useUserContext();
   const scrollY = useSharedValue(0);
 
   const onScrollHandler = useAnimatedScrollHandler(event => {
     scrollY.value = event.contentOffset.y;
   });
+
+  const cards = user?.isVIP ? VIPCARDS(user) : NORMALCARDS(user);
 
   const renderAddCardButton = () => {
     return (
@@ -46,12 +50,12 @@ export const Cards = () => {
         }}
         contentInset={{
           top: 0,
-          bottom: CARDS.length * 100,
+          bottom: cards.length * 100,
         }}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         bounces={false}
-        data={CARDS}
+        data={cards}
         keyExtractor={item => item.id.toString()}
         renderItem={({ index, item }) => (
           <Box mb={6} px={6}>
