@@ -7,25 +7,25 @@ import { useUserContext } from '../../contexts/user-context'; // Import the cust
 const list = [
   {
     picUrl: "https://i.pinimg.com/236x/af/84/d1/af84d13e2a6fb1e5f554dd4148b96860.jpg",
-    username: "Bernard",
+    username: "Ducky",
     password: '123456',
     isVIP: true,
   },
   {
     picUrl: "https://avatarfiles.alphacoders.com/221/221852.jpg",
-    username: "Kienan",
+    username: "Adrian",
     password: '123456',
     isVIP: false,
   },
   {
     picUrl: "https://yourdailygerman.com/wp-content/uploads/2022/12/gigachad.jpg",
-    username: "Jacky",
+    username: "Sigma Boy",
     password: '123456',
     isVIP: false,
   },
   {
     picUrl: "https://wallpapers-clan.com/wp-content/uploads/2022/05/meme-pfp-12.jpg",
-    username: "Qing Hao",
+    username: "Dora",
     password: '123456',
     isVIP: true,
   },
