@@ -25,15 +25,13 @@ https://user-images.githubusercontent.com/17832776/187319368-48451201-a8a5-467c-
 
 1. Clone down this repository. You will need `node` and `expo` installed globally on your machine.
 
-   `git clone https://github.com/MarceloDJunior/banking-app.git`
-
 2. Install dependencies:
 
-   `yarn` or `npm install`
+   `npm install`
 
 3. Start Expo Server:
 
-   `expo start`
+   `npx expo start`
 
 4. See the instructions in terminal to open the app.
 
