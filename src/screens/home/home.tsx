@@ -9,9 +9,12 @@ import { Balance } from './components/balance';
 import { CardList } from './components/card-list';
 import { ServicesGrid } from './components/services-grid';
 import { TransactionHistory } from './components/transaction-history';
+import { useUserContext } from '../../contexts/user-context';
+import { VIPExclusive } from './components/vip';
 
 export const Home = () => {
   const { colors } = useTheme();
+  const { user } = useUserContext();
   const { onScroll, onScrollViewLayout } = useStickyScrollEvents();
 
   const renderNotificationsButton = () => {
@@ -39,6 +42,7 @@ export const Home = () => {
         flex={1}
         bg={colors.secondary[500]}
       >
+        {user?.isVIP ? <VIPExclusive/> : undefined}
         <Balance />
         <CardList />
         <ServicesGrid />

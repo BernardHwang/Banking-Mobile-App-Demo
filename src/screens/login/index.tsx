@@ -79,7 +79,7 @@ const Login = () => {
       <DropDownPicker
         open={open}
         value={selectedUser}
-        items={list.map((user) => ({ label: user.username, value: user.username }))}
+        items={list.map((user) => ({ label: `${user.username} - ${user.isVIP ? 'VIP' : 'Normal'}`, value: user.username }))}
         setOpen={setOpen}
         setValue={setSelectedUser}
         placeholder="Select a user"

@@ -9,6 +9,7 @@ export const Balance = () => {
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     return new Intl.NumberFormat('en-MY', { style: 'currency', currency: 'MYR' }).format(randomNumber);
   };
+  
   return (
     <HStack
       px={4}
