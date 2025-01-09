@@ -11,6 +11,7 @@ import { ServicesGrid } from './components/services-grid';
 import { TransactionHistory } from './components/transaction-history';
 import { useUserContext } from '../../contexts/user-context';
 import { VIPExclusive } from './components/vip';
+import { NewYear } from './components/new-year';
 
 export const Home = () => {
   const { colors } = useTheme();
@@ -42,7 +43,8 @@ export const Home = () => {
         flex={1}
         bg={colors.secondary[500]}
       >
-        {user?.isVIP ? <VIPExclusive/> : undefined}
+        <NewYear/>
+        <VIPExclusive/>
         <Balance />
         <CardList />
         <ServicesGrid />

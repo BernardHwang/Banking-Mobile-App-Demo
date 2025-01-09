@@ -1,5 +1,5 @@
 export enum DrawerRoutes {
-  HomeStack = 'HomeStack',
-  CardsTabs = 'CardsTabs',
-  SettingsTabs = 'SettingsTabs',
+  HomeStack = 'Home',
+  CardsTabs = 'Cards',
+  SettingsTabs = 'Settings',
 }
