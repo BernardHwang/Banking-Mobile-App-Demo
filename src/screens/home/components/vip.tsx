@@ -1,10 +1,13 @@
 import { HStack, Text, useTheme, VStack } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserContext } from "../../../contexts/user-context";
+import { useLDClient } from "@launchdarkly/react-native-client-sdk";
+import { Alert } from "react-native";
 
 export const VIPExclusive = () => {
   const { user } = useUserContext();
   const { colors } = useTheme();
+
   return (
     <HStack
       mx={4}

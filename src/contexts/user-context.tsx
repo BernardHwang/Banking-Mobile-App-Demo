@@ -7,6 +7,8 @@ interface UserDetails {
   username: string;
   isVIP: boolean;
   password: string; // You can add more details as needed
+  memberType: string;
+  id: string;
 }
 
 // Define the context type

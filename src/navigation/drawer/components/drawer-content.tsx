@@ -16,6 +16,7 @@ import { useAppContext } from '../../../contexts/app-context';
 import { useUserContext } from '../../../contexts/user-context';
 import { Alert, Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useLDClient } from '@launchdarkly/react-native-client-sdk';
 
 const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
   DrawerContentScrollView
@@ -28,6 +29,12 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   const drawerStatus = useDrawerStatus();
   const rotate = useSharedValue('25deg');
   const marginVertical = useSharedValue(0);
+  const client = useLDClient();
+  const { differentColourMobile } = client.allFlags();
+  let nonVipSuggestion = null;
+  if (differentColourMobile == "drawer"){
+    nonVipSuggestion = 'How to become VIP'
+  }
 
   useLayoutEffect(() => {
     if (drawerStatus === 'open') {
@@ -78,7 +85,12 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           "- Enroll in priority banking programs.\n" +
           "- Stay loyal and qualify for invitation-only VIP access.",
         [
-          { text: "OK", onPress: () => console.log("Non-VIP Alert dismissed") } // Button to dismiss the alert
+          { text: "OK", onPress: () => console.log("Non-VIP Alert dismissed") }, // Button to dismiss the alert
+          { text: "I'm interested", onPress: () => {
+            client.track('joiningVIP');
+            client.flush();
+            console.log("Button click Event Tracked");
+          }}
         ]
       );
     }
@@ -106,12 +118,25 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         <Text style={{color: 'white', fontWeight: 'bold'}}>{user?.isVIP ? 'VIP User' : 'Normal User'}</Text>
       </HStack>
       <DrawerItemList {...props} />
-      <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
-        <HStack alignItems="center">
-          <MaterialCommunityIcons name='account-arrow-up-outline' color={'white'} size={25}/>
-          <Text style={{color: 'white', marginLeft: 16}}>{user?.isVIP ? 'VIP Privilege ': 'How to become VIP'}</Text>
-        </HStack>
-      </TouchableOpacity>
+      {
+        user?.isVIP && 
+        <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
+          <HStack alignItems="center">
+            <MaterialCommunityIcons name='account-arrow-up-outline' color={'white'} size={25}/>
+            <Text style={{color: 'white', marginLeft: 16}}>VIP Privilege</Text>
+          </HStack>
+        </TouchableOpacity>
+      }
+      {
+        !user?.isVIP && differentColourMobile == "drawer" && 
+        <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
+          <HStack alignItems="center">
+            <MaterialCommunityIcons name='account-arrow-up-outline' color={'white'} size={25}/>
+            <Text style={{color: 'white', marginLeft: 16}}>{nonVipSuggestion}</Text>
+          </HStack>
+        </TouchableOpacity>
+      }
+
       <HStack alignItems="center" p={3} mt={8}>
         <Heading fontSize="sm" color="white" mr={4}>
           Dark Mode
