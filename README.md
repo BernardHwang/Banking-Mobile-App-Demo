@@ -27,13 +27,17 @@ https://user-images.githubusercontent.com/17832776/187319368-48451201-a8a5-467c-
 
 2. Install dependencies:
 
-   `yarn install`
+   `npm install`
 
-3. Start Expo Server:
+3. Make sure the expo version is 52.0.0 for better connectivity
 
-   `yarn expo start`
+4. Double check the expo go device is connecting to the same wifi of the host device
 
-4. See the instructions in terminal to open the app.
+5. Start Expo Server:
+
+   `npm expo start`
+
+6. See the instructions in terminal to open the app.
 
 ## Technologies used
 
