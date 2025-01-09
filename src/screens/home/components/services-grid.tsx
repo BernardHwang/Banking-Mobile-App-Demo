@@ -10,11 +10,16 @@ import {
   Coins as ExchangeIcon,
   CirclesFour as MoreIcon,
 } from 'phosphor-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useBoolVariation } from '@launchdarkly/react-native-client-sdk';
+
 
 type ServiceItemType = {
   id: number;
   title: string;
   icon: React.ReactElement;
+  onPress?: () => void;
+  isDisabled?: boolean;
 };
 
 const SERVICES_LINE_1: ServiceItemType[] = [
@@ -63,12 +68,12 @@ const SERVICES_LINE_2 = [
   },
 ];
 
-const ServiceItem = ({ icon, title }: ServiceItemType) => {
+const ServiceItem = ({ icon, title, onPress, isDisabled = false }: ServiceItemType & { onPress: () => void; isDisabled?: boolean }) => {
   const { colors } = useTheme();
 
   return (
     <VStack alignItems="center">
-      <Button rounded="full" size="16">
+      <Button rounded="full" size="16"  onPress={onPress} isDisabled={isDisabled}>
         <Box
           flex={1}
           rounded="full"
@@ -98,17 +103,56 @@ const ServiceItem = ({ icon, title }: ServiceItemType) => {
 };
 
 export const ServicesGrid = () => {
+  const navigation = useNavigation();
+
+  //  Flag
+  const CashInputButtonFlag = useBoolVariation('cash-in-button', false)
+
+  const updatedServicesLine1 = SERVICES_LINE_1.map((item) => ({
+    ...item,
+    isDisabled: item.id === 1 ? !CashInputButtonFlag : false,
+    onPress: () => {
+      switch (item.id) {
+        case 1:
+          navigation.navigate('CashIn' as never);
+          break;
+        case 2:
+          navigation.navigate('SendMoney'as never );
+          break;
+        // case 3:
+        //   navigation.navigate('ReceiveMoney');
+        //   break;
+        default:
+          console.log('Service not mapped:', item.title);
+      }
+    },
+  }));
+
+  const updatedServicesLine2 = SERVICES_LINE_2.map((item) => ({
+    ...item,
+    onPress: () => {
+      console.log('Service not implemented:', item.title);
+    },
+  }));
+
   return (
     <VStack px={4} my={3} width="full">
       <HStack width="full" justifyContent="space-evenly">
-        {SERVICES_LINE_1.map(item => (
+        {/* {SERVICES_LINE_1.map(item => (
+          <ServiceItem key={item.id} {...item} />
+        ))} */}
+        {updatedServicesLine1.map((item) => (
           <ServiceItem key={item.id} {...item} />
         ))}
       </HStack>
       <HStack width="full" justifyContent="space-evenly" mt={4}>
-        {SERVICES_LINE_2.map(item => (
+        {/* {SERVICES_LINE_2.map(item => (
+          <ServiceItem key={item.id} {...item} />
+        ))} */}
+        {updatedServicesLine2.map((item) => (
           <ServiceItem key={item.id} {...item} />
         ))}
+
       </HStack>
     </VStack>
   );

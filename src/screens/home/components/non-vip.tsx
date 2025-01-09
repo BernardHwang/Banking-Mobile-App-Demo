@@ -8,14 +8,7 @@ export const NonVIPExclusive = () => {
   const { user } = useUserContext();
   const { colors } = useTheme();
   const client = useLDClient();
-    const { "test-feature1": testFeature1 , 
-        stringVariationFlag, 
-        testing01, 
-        AndrewTesting, 
-        "test-feature": testFeature,
-        numberVariationFlag,
-        differentColourMobile,
-    } = client.allFlags();
+    const { differentColourMobile } = client.allFlags();
     
     const test = useStringVariationDetail('differentColourMobile', 'frontpage');
 

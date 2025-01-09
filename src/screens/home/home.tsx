@@ -1,4 +1,4 @@
-import { IconButton, useTheme, ScrollView } from 'native-base';
+import { IconButton, useTheme, ScrollView, Text, Box } from 'native-base';
 import { Bell as NotificationIcon } from 'phosphor-react-native';
 
 import { Container } from '../../components/container';
@@ -13,13 +13,11 @@ import { useUserContext } from '../../contexts/user-context';
 import { VIPExclusive } from './components/vip';
 import { NonVIPExclusive } from './components/non-vip';
 import { useEffect } from 'react';
-import { useLDClient } from '@launchdarkly/react-native-client-sdk';
+import { useLDClient, useStringVariationDetail, useBoolVariation } from '@launchdarkly/react-native-client-sdk';
 import { Alert } from 'react-native';
 import { ClaimRewards } from './components/claim-reward';
 
-
 const names = ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace"];
-
 
 function getRandomName(nameList:string[]) {
   const randomIndex = Math.floor(Math.random() * nameList.length);
@@ -34,11 +32,18 @@ export const Home = () => {
   }
   const client = useLDClient();
   const context = { kind: 'user', key: name, name:user?.username, memberType: user?.memberType  }
-    const { numberVariationFlag, isVip } = client.allFlags();
-    client.identify(context).catch((e: any) => console.log(e));
+  const { numberVariationFlag, isVip, EnableTransactionHistory } = client.allFlags();
+  client.identify(context).catch((e: any) => console.log(e));
   // Alert.alert(JSON.stringify(context));
   // Alert.alert(JSON.stringify(user))
-  // Alert.alert(JSON.stringify(numberVariationFlag));
+  // Alert.alert(JSON.stringify(client.allFlags()));
+
+  console.log('All flags:', client.allFlags());
+  console.log('Flag values:', {
+    numberVariationFlag,
+    isVip,
+    EnableTransactionHistory,
+  });
 
   const { onScroll, onScrollViewLayout } = useStickyScrollEvents();
 
@@ -72,7 +77,20 @@ export const Home = () => {
         <Balance />
         <CardList />
         <ServicesGrid />
-        <TransactionHistory />
+        {/* <TransactionHistory /> */}
+        {EnableTransactionHistory ? <TransactionHistory />:
+         <Box
+         bg="transparent"
+         p={4}
+         borderRadius="md"
+         shadow={2}
+         alignItems="center"
+         justifyContent="center"
+       >
+         <Text color={colors.lightText[500]} fontSize="lg" textAlign="center" fontWeight="bold">
+           No transaction history found
+         </Text>
+       </Box>}
       </ScrollView>
     </Container>
   );

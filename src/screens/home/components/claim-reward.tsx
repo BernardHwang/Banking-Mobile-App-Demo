@@ -7,11 +7,7 @@ import { useLDClient } from "@launchdarkly/react-native-client-sdk";
 export const ClaimRewards = () => {
   const { user } = useUserContext();
   const { colors } = useTheme();
-    const { "test-feature1": testFeature1 , 
-        stringVariationFlag, 
-        testing01, 
-        AndrewTesting, 
-        "test-feature": testFeature,
+    const {
         numberVariationFlag,
     } = useLDClient().allFlags()
     

@@ -15,7 +15,9 @@ import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
 
-const client = new ReactNativeLDClient('mob-deb8e733-2957-46a2-bb51-0b35e99ba46f', AutoEnvAttributes.Enabled);
+// const client = new ReactNativeLDClient('mob-deb8e733-2957-46a2-bb51-0b35e99ba46f', AutoEnvAttributes.Enabled); //QH
+const client = new ReactNativeLDClient('mob-2c3a3441-840b-4b2b-abb4-343afdd74503', AutoEnvAttributes.Enabled); //Separate App
+
 
 
 const config = {

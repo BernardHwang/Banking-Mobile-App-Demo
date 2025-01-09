@@ -5,6 +5,8 @@ import { Transactions as TransactionsScreen } from '../../screens/transactions';
 import { TabNavigator } from '../bottom-tabs/bottom-tabs-navigator';
 import { Drawer3dContainer } from '../drawer/components/drawer-3d-container';
 import { StackParamList, StackRoutes } from '../routes/stack-routes';
+import CashInPage from '../../screens/services/CashIn';
+import SendMoneyPage from '../../screens/services/SendMoney'; 
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -29,6 +31,8 @@ export const StackNavigator = () => {
         name={StackRoutes.Transactions}
         component={TransactionsScreen}
       />
+       <Stack.Screen name={StackRoutes.CashIn} component={CashInPage} />
+       <Stack.Screen name={StackRoutes.SendMoney} component={SendMoneyPage} />
     </Stack.Navigator>
   );
 };
