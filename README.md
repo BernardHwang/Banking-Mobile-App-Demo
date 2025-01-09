@@ -35,7 +35,7 @@ https://user-images.githubusercontent.com/17832776/187319368-48451201-a8a5-467c-
 
 5. Start Expo Server:
 
-   `npm expo start`
+   `npx expo start`
 
 6. See the instructions in terminal to open the app.
 
