@@ -27,11 +27,11 @@ https://user-images.githubusercontent.com/17832776/187319368-48451201-a8a5-467c-
 
 2. Install dependencies:
 
-   `npm install`
+   `yarn install`
 
 3. Start Expo Server:
 
-   `npx expo start`
+   `yarn expo start`
 
 4. See the instructions in terminal to open the app.
 
