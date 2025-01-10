@@ -4,7 +4,7 @@ import {
   DrawerItemList,
   useDrawerStatus,
 } from '@react-navigation/drawer';
-import { Heading, HStack, Image, Switch, useTheme, VStack } from 'native-base';
+import { Box, Heading, HStack, Image, Stack, Switch, useTheme, View, VStack } from 'native-base';
 import { useLayoutEffect } from 'react';
 import Animated, {
   useAnimatedStyle,

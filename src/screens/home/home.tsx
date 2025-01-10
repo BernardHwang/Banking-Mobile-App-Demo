@@ -22,7 +22,8 @@ const names = ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace"];
 function getRandomName(nameList:string[]) {
   const randomIndex = Math.floor(Math.random() * nameList.length);
   return nameList[randomIndex];
-}
+}import { NewYear } from './components/new-year';
+
 export const Home = () => {
   const { colors } = useTheme();
   const { user } = useUserContext();
@@ -72,6 +73,7 @@ export const Home = () => {
         flex={1}
         bg={colors.secondary[500]}
       >
+        <NewYear/>
         <ClaimRewards/>
         {isVip ? <VIPExclusive/> : <NonVIPExclusive/>}
         <Balance />

@@ -38,7 +38,7 @@ export const TabNavigator = () => {
         paddingBottom: isStickyEnabled ? bottom : 60 + bottom,
       }}
     >
-      <Tab.Screen name={BottomTabsRoutes.Cards} component={Cards} />
+      <Tab.Screen name={BottomTabsRoutes.Cards} component={Cards} options={{ title: 'Cards' }}/>
       <Tab.Screen
         name={BottomTabsRoutes.Home}
         component={Home}

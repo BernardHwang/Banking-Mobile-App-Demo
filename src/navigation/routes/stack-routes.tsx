@@ -3,6 +3,9 @@ export enum StackRoutes {
   Transactions = 'Transactions',
   CashIn = 'CashIn',
   SendMoney='SendMoney'
+  TransactionsType = 'TransactionsType',
+  BillHistory = 'BillHistory',
+  Transfer = 'Transfer',
 }
 
 export type StackParamList = {
@@ -10,4 +13,7 @@ export type StackParamList = {
   [StackRoutes.Transactions]: undefined;
   [StackRoutes.CashIn]: undefined;
   [StackRoutes.SendMoney]: undefined;
+  [StackRoutes.TransactionsType]: undefined;
+  [StackRoutes.BillHistory]: undefined;
+  [StackRoutes.Transfer]: any;
 };

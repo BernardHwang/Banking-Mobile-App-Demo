@@ -5,8 +5,8 @@ import { useLDClient } from "@launchdarkly/react-native-client-sdk";
 import { Alert } from "react-native";
 
 export const VIPExclusive = () => {
-  const { user } = useUserContext();
   const { colors } = useTheme();
+  const { user } = useUserContext();
 
   return (
     <HStack
@@ -19,10 +19,22 @@ export const VIPExclusive = () => {
       borderRadius={'15'}
     >
       <VStack>
-        <Text fontSize="2xl" fontWeight="bold" color={'red.500'}>New !!! VIP exclusive promotion: </Text>
-        <Text fontSize="md" fontWeight="bold" color={colors.text[500]}>
-          Priority Loan Approvals: Faster approvals with tailored rates exclusively for VIPs.
-        </Text>
+        {user?.isVIP ? (
+          <>
+            <Text fontSize="2xl" fontWeight="bold" color={'red.500'}>New !!! VIP exclusive promotion: </Text>
+            <Text fontSize="md" fontWeight="bold" color={colors.text[500]}>
+              Priority Loan Approvals: Faster approvals with tailored rates exclusively for VIPs.
+            </Text>
+          </>
+        ) : (
+          <>
+            <Text fontSize="2xl" fontWeight="bold" color={'red.500'}>Grab the VIP Ticket !!!</Text>
+            <Text fontSize="md" fontWeight="bold" color={colors.text[500]}>
+              You are not joined Our VIP, Let's Grab the ticket to enjoy the VIP Privillege
+            </Text>
+          </>
+        )}
+        
       </VStack>
     </HStack>
   )

@@ -11,6 +11,8 @@ import {
   CirclesFour as MoreIcon,
 } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList, StackRoutes } from '../../../navigation/routes/stack-routes';
 import { useBoolVariation } from '@launchdarkly/react-native-client-sdk';
 
 
@@ -18,7 +20,8 @@ type ServiceItemType = {
   id: number;
   title: string;
   icon: React.ReactElement;
-  onPress?: () => void;
+  navigate: StackRoutes | undefined;
+  // onPress?: () => void;
   isDisabled?: boolean;
 };
 
@@ -27,21 +30,25 @@ const SERVICES_LINE_1: ServiceItemType[] = [
     id: 1,
     title: 'Cash In',
     icon: <CashInIcon />,
+    navigate: StackRoutes.CashIn,
   },
   {
     id: 2,
     title: 'Send',
     icon: <SendIcon />,
+    navigate: StackRoutes.TransactionsType,
   },
   {
     id: 3,
     title: 'Receive',
     icon: <ReceiveIcon />,
+    navigate: undefined,
   },
   {
     id: 4,
     title: 'Pay QR',
     icon: <PayQr />,
+    navigate: undefined,
   },
 ];
 
@@ -50,30 +57,36 @@ const SERVICES_LINE_2 = [
     id: 5,
     title: 'Withdraw',
     icon: <WithdrawIcon />,
+    navigate: undefined,
   },
   {
     id: 6,
-    title: 'Pay Bills',
+    title: 'Bill History',
     icon: <PayBillsIcon />,
+    navigate: StackRoutes.BillHistory,
   },
   {
     id: 7,
     title: 'Exchange',
     icon: <ExchangeIcon />,
+    navigate: undefined,
   },
   {
     id: 8,
     title: 'More',
     icon: <MoreIcon />,
+    navigate: undefined,
   },
 ];
 
-const ServiceItem = ({ icon, title, onPress, isDisabled = false }: ServiceItemType & { onPress: () => void; isDisabled?: boolean }) => {
+const ServiceItem = ({ icon, title, navigate, isDisabled = false}: ServiceItemType) => {
   const { colors } = useTheme();
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (
     <VStack alignItems="center">
-      <Button rounded="full" size="16"  onPress={onPress} isDisabled={isDisabled}>
+
+      <Button rounded="full" size="16" onPress={() => navigate && navigation.navigate(navigate)} isDisabled={isDisabled}>
         <Box
           flex={1}
           rounded="full"
