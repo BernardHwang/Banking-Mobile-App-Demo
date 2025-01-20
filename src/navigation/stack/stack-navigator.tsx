@@ -9,7 +9,15 @@ import { Drawer3dContainer } from '../drawer/components/drawer-3d-container';
 import { StackParamList, StackRoutes } from '../routes/stack-routes';
 import CashInPage from '../../screens/services/CashIn';
 import SendMoneyPage from '../../screens/services/SendMoney'; 
-import { Transfer } from '../../screens/transfer';
+import { Transfer } from '../../screens/transactionstype/transfer';
+import { Application } from '../../screens/application';
+import { CreditCard } from '../../screens/application/creditcard';
+import { InfoFilling } from '../../screens/application/creditcard/infofilling';
+import { InfoFillingAdv } from '../../screens/application/creditcard/infofillingadv';
+import { Event } from '../../screens/event/event';
+import { RedeemSticker } from '../../screens/event/redeemsticker';
+import { CreditCardStatus } from '../../screens/application/creditcard/creditcardstatus';
+import { Support } from '../../screens/support';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -53,6 +61,38 @@ export const StackNavigator = () => {
       <Stack.Screen
         name={StackRoutes.Transfer}
         component={Transfer}
+      />
+      <Stack.Screen
+        name={StackRoutes.Application}
+        component={Application}
+      />
+      <Stack.Screen
+        name={StackRoutes.CreditCard}
+        component={CreditCard}
+      />
+      <Stack.Screen
+        name={StackRoutes.CreditCardInfoFilling}
+        component={InfoFilling}
+      />
+      <Stack.Screen
+        name={StackRoutes.CreditCardInfoFillingAdv}
+        component={InfoFillingAdv}
+      />
+      <Stack.Screen
+        name={StackRoutes.CreditCardStatus}
+        component={CreditCardStatus}
+      />
+      <Stack.Screen
+        name={StackRoutes.Event}
+        component={Event}
+      />
+      <Stack.Screen
+        name={StackRoutes.RedeemSticker}
+        component={RedeemSticker}
+      />
+      <Stack.Screen
+        name={StackRoutes.Support}
+        component={Support}
       />
     </Stack.Navigator>
   );

@@ -24,6 +24,7 @@ function getRandomName(nameList:string[]) {
   const randomIndex = Math.floor(Math.random() * nameList.length);
   return nameList[randomIndex];
 }import { NewYear } from './components/new-year';
+import { CCBanner } from './components/applycreditcard';
 
 export const Home = () => {
   const { colors } = useTheme();
@@ -79,6 +80,7 @@ export const Home = () => {
         flex={1}
         bg={colors.secondary[500]}
       >
+        <CCBanner />
         {NewYearPromotionFlag? <NewYear/>:null}
         {/* <ClaimRewards/> */}
         {user?.isVIP ? <VIPExclusive/> : <NonVIPExclusive/>}
@@ -86,18 +88,18 @@ export const Home = () => {
         <CardList />
         <ServicesGrid />
         {EnableTransactionHistory ? <TransactionHistory />:
-         <Box
-         bg="transparent"
-         p={4}
-         borderRadius="md"
-         shadow={2}
-         alignItems="center"
-         justifyContent="center"
-       >
-         <Text color={colors.lightText[500]} fontSize="lg" textAlign="center" fontWeight="bold">
-           No transaction history found
-         </Text>
-       </Box>}
+          <Box
+          bg="transparent"
+          p={4}
+          borderRadius="md"
+          shadow={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Text color={colors.lightText[500]} fontSize="lg" textAlign="center" fontWeight="bold">
+            No transaction history found
+          </Text>
+        </Box>}
       </ScrollView>
     </Container>
   );

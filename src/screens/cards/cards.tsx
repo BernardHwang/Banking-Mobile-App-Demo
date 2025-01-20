@@ -12,10 +12,14 @@ import { NORMALCARDS, VIPCARDS } from '../../constant/cards';
 
 import { AnimatedCard } from './components/animated-card';
 import { useUserContext } from '../../contexts/user-context';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList, StackRoutes } from '../../navigation/routes/stack-routes';
 
 export const Cards = () => {
   const { colors } = useTheme();
   const { user } = useUserContext();
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>();
   const scrollY = useSharedValue(0);
 
   const onScrollHandler = useAnimatedScrollHandler(event => {
@@ -32,6 +36,7 @@ export const Cards = () => {
         justifyContent="center"
         p={1}
         icon={<PlusCircle size={28} color={colors.text[500]} />}
+        onPress={() => navigation.navigate(StackRoutes.CreditCard)}
       />
     );
   };

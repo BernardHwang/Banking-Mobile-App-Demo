@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "../../components/container";
-import { Header } from "../../components/header";
+import { Container } from "../../../components/container";
+import { Header } from "../../../components/header";
 import { Button, HStack, Input, Text, useTheme, View, VStack } from "native-base";
 import { ArrowElbowDownRight } from "phosphor-react-native";
 

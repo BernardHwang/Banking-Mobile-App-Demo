@@ -5,10 +5,10 @@ import {
   UploadSimple as SendIcon,
   DownloadSimple as ReceiveIcon,
   QrCode as PayQr,
-  Bank as WithdrawIcon,
+  Calendar,
   Receipt as PayBillsIcon,
-  Coins as ExchangeIcon,
-  CirclesFour as MoreIcon,
+  Files,
+  User,
 } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -55,9 +55,9 @@ const SERVICES_LINE_1: ServiceItemType[] = [
 const SERVICES_LINE_2 = [
   {
     id: 5,
-    title: 'Withdraw',
-    icon: <WithdrawIcon />,
-    navigate: undefined,
+    title: 'Event',
+    icon: <Calendar />,
+    navigate: StackRoutes.Event,
   },
   {
     id: 6,
@@ -67,15 +67,15 @@ const SERVICES_LINE_2 = [
   },
   {
     id: 7,
-    title: 'Exchange',
-    icon: <ExchangeIcon />,
-    navigate: undefined,
+    title: 'Application',
+    icon: <Files />,
+    navigate: StackRoutes.Application,
   },
   {
     id: 8,
-    title: 'More',
-    icon: <MoreIcon />,
-    navigate: undefined,
+    title: 'Support',
+    icon: <User />,
+    navigate: StackRoutes.Support,
   },
 ];
 
