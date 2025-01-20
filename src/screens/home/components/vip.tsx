@@ -1,12 +1,14 @@
 import { HStack, Text, useTheme, VStack } from "native-base";
 import React, { useEffect } from "react";
 import { useUserContext } from "../../../contexts/user-context";
-import { useLDClient } from "@launchdarkly/react-native-client-sdk";
+import { useLDClient, useStringVariation } from "@launchdarkly/react-native-client-sdk";
 import { Alert } from "react-native";
+
 
 export const VIPExclusive = () => {
   const { colors } = useTheme();
   const { user } = useUserContext();
+  // const SignUpVipFlag = useStringVariation('differentColourMobile', 'alert');
 
   return (
     <HStack
@@ -30,7 +32,7 @@ export const VIPExclusive = () => {
           <>
             <Text fontSize="2xl" fontWeight="bold" color={'red.500'}>Grab the VIP Ticket !!!</Text>
             <Text fontSize="md" fontWeight="bold" color={colors.text[500]}>
-              You are not joined Our VIP, Let's Grab the ticket to enjoy the VIP Privillege
+              You are not joined Our VIP, Enjoy VIP Privillege with new only 50,000k Fresh Fund by June 2025.
             </Text>
           </>
         )}

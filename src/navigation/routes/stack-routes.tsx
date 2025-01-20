@@ -2,7 +2,7 @@ export enum StackRoutes {
   HomeTabs = 'HomeTabs',
   Transactions = 'Transactions',
   CashIn = 'CashIn',
-  SendMoney='SendMoney'
+  SendMoney='SendMoney',
   TransactionsType = 'TransactionsType',
   BillHistory = 'BillHistory',
   Transfer = 'Transfer',

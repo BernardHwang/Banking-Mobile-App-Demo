@@ -110,7 +110,7 @@ export const BillHistory = () => {
                   >
                     {item.type === 'receive' ? '+' : '-'}RM
                     {item.amount.toFixed(2)}
-                  </Text>
+                  </Text>r
                 </HStack>
               ))}
             </VStack>

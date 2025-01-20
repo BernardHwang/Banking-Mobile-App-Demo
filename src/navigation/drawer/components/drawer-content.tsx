@@ -16,7 +16,7 @@ import { useAppContext } from '../../../contexts/app-context';
 import { useUserContext } from '../../../contexts/user-context';
 import { Alert, Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useLDClient } from '@launchdarkly/react-native-client-sdk';
+import { useLDClient, useStringVariation } from '@launchdarkly/react-native-client-sdk';
 
 const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
   DrawerContentScrollView
@@ -30,9 +30,10 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   const rotate = useSharedValue('25deg');
   const marginVertical = useSharedValue(0);
   const client = useLDClient();
-  const { differentColourMobile } = client.allFlags();
+  // const { differentColourMobile } = client.allFlags();
+  const SignUpVipFlag = useStringVariation('differentColourMobile', 'alert');
   let nonVipSuggestion = null;
-  if (differentColourMobile == "drawer"){
+  if (SignUpVipFlag == "drawer"){
     nonVipSuggestion = 'How to become VIP'
   }
 
@@ -87,7 +88,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         [
           { text: "OK", onPress: () => console.log("Non-VIP Alert dismissed") }, // Button to dismiss the alert
           { text: "I'm interested", onPress: () => {
-            client.track('joiningVIP');
+            client.track('PromotionalVipClick');
             client.flush();
             console.log("Button click Event Tracked");
           }}
@@ -117,7 +118,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         <MaterialCommunityIcons size={12} name='crown-outline' color={user?.isVIP ? '#edd24a' : '#d1d0c9'}/>
         <Text style={{color: 'white', fontWeight: 'bold'}}>{user?.isVIP ? 'VIP User' : 'Normal User'}</Text>
       </HStack>
-      <DrawerItemList {...props} />
+      {/* <DrawerItemList {...props} /> */}
       {
         user?.isVIP && 
         <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
@@ -128,7 +129,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         </TouchableOpacity>
       }
       {
-        !user?.isVIP && differentColourMobile == "drawer" && 
+        !user?.isVIP && SignUpVipFlag == "drawer" && 
         <TouchableOpacity onPress={() => vipDesc()} style={{padding: 12}}>
           <HStack alignItems="center">
             <MaterialCommunityIcons name='account-arrow-up-outline' color={'white'} size={25}/>
@@ -154,3 +155,4 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
     </AnimatedDrawerContentScrollView>
   );
 };
+

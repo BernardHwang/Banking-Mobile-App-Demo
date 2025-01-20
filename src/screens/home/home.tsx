@@ -17,6 +17,7 @@ import { useLDClient, useStringVariationDetail, useBoolVariation } from '@launch
 import { Alert } from 'react-native';
 import { ClaimRewards } from './components/claim-reward';
 
+
 const names = ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace"];
 
 function getRandomName(nameList:string[]) {
@@ -33,7 +34,12 @@ export const Home = () => {
   }
   const client = useLDClient();
   const context = { kind: 'user', key: name, name:user?.username, memberType: user?.memberType  }
-  const { numberVariationFlag, isVip, EnableTransactionHistory } = client.allFlags();
+  const { numberVariationFlag, EnableTransactionHistory } = client.allFlags();
+
+  // fLAG
+  const NewYearPromotionFlag = useBoolVariation('NewYearPromotion', false)
+  // const isVip = useBoolVariation('isVip', false)
+
   client.identify(context).catch((e: any) => console.log(e));
   // Alert.alert(JSON.stringify(context));
   // Alert.alert(JSON.stringify(user))
@@ -42,7 +48,7 @@ export const Home = () => {
   console.log('All flags:', client.allFlags());
   console.log('Flag values:', {
     numberVariationFlag,
-    isVip,
+    // isVip,
     EnableTransactionHistory,
   });
 
@@ -73,13 +79,12 @@ export const Home = () => {
         flex={1}
         bg={colors.secondary[500]}
       >
-        <NewYear/>
-        <ClaimRewards/>
-        {isVip ? <VIPExclusive/> : <NonVIPExclusive/>}
+        {NewYearPromotionFlag? <NewYear/>:null}
+        {/* <ClaimRewards/> */}
+        {user?.isVIP ? <VIPExclusive/> : <NonVIPExclusive/>}
         <Balance />
         <CardList />
         <ServicesGrid />
-        {/* <TransactionHistory /> */}
         {EnableTransactionHistory ? <TransactionHistory />:
          <Box
          bg="transparent"
